@@ -1,0 +1,30 @@
+{
+  "transactions": [
+    {
+      "id": 1,
+      "type": "expense",
+      "date": "2024-03-01",
+      "category": "식비",
+      "description": "점심 식사",
+      "amount": 12000
+    },
+    {
+      "id": 2,
+      "type": "income",
+      "date": "2024-03-01",
+      "category": "급여",
+      "description": "3월 급여",
+      "amount": 3000000
+    }
+  ],
+  "categories": [
+    { "id": 1, "type": "expense", "name": "식비" },
+    { "id": 2, "type": "expense", "name": "교통" },
+    { "id": 3, "type": "expense", "name": "쇼핑" },
+    { "id": 4, "type": "expense", "name": "문화" },
+    { "id": 5, "type": "expense", "name": "기타" },
+    { "id": 6, "type": "income", "name": "급여" },
+    { "id": 7, "type": "income", "name": "용돈" },
+    { "id": 8, "type": "income", "name": "기타수입" }
+  ]
+}

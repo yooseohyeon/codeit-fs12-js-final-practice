@@ -1,0 +1,11 @@
+{
+  "name": "challenge",
+  "version": "1.0.0",
+  "description": "아무것도 제공되지 않습니다. **요구사항 문서만 보고** 수입/지출 관리 앱을 처음부터 끝까지 직접 만드세요.",
+  "scripts": {
+    "start": "npx json-server --watch db.json --port 4000"
+  }
+  "dependencies": {
+    "json-server": "^1.0.0-beta.13"
+  }
+}
