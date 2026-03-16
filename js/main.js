@@ -16,7 +16,13 @@ import {
   calcStats,
 } from "./utils.js";
 import { renderStats } from "./render/stats.js";
-import { saveSettings, loadSettings } from "./storage.js";
+import {
+  saveSettings,
+  loadSettings,
+  saveFormDraft,
+  loadFormDraft,
+  clearFormDraft,
+} from "./storage.js";
 
 const form = document.querySelector("#transaction-form");
 const formTitle = document.querySelector("#form-title");
@@ -50,6 +56,7 @@ async function init() {
     renderCategoryOptions(categories);
 
     applySettings();
+    applyFormDraft();
     loadStats();
     applyFilters();
   } catch (e) {
@@ -79,6 +86,11 @@ function getFormData() {
   };
 }
 
+form.addEventListener("input", () => {
+  if (form.dataset.editId) return;
+  saveFormDraft(getFormData());
+});
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -96,6 +108,7 @@ form.addEventListener("submit", async (e) => {
       form.querySelector("button[type='submit']").textContent = "추가";
     } else {
       await createTransaction(data);
+      clearFormDraft();
       showToast("수입/지출 내역이 추가되었습니다.", "success");
       await loadTransactions();
     }
@@ -190,4 +203,15 @@ function applySettings() {
   typeFilter.value = settings.type;
   categoryFilter.value = settings.category;
   sortSelect.value = settings.sort;
+}
+
+function applyFormDraft() {
+  const draft = loadFormDraft();
+  if (draft) {
+    typeInput.value = draft.type;
+    dateInput.value = draft.date;
+    categoryInput.value = draft.category;
+    amountInput.value = draft.amount;
+    descriptionInput.value = draft.description;
+  }
 }
