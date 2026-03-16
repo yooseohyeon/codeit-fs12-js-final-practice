@@ -3,6 +3,8 @@
 수입과 지출을 기록하고 관리할 수 있는 웹 애플리케이션입니다.
 월별 통계, 카테고리별 필터링, 실시간 검색 등 다양한 기능을 제공합니다.
 
+![](https://velog.velcdn.com/images/yooseohyeon02/post/3dd40553-a1f8-42ee-9dc5-ca574c359cba/image.png)
+
 ## ✨ 주요 기능
 
 - **CRUD**: 수입/지출 내역 추가, 조회, 수정, 삭제
