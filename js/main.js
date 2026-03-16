@@ -5,6 +5,7 @@ import { validateTransaction } from "./validation.js";
 
 const form = document.querySelector("#transaction-form");
 const list = document.querySelector("#transaction-list");
+const deleteSelectedBtn = document.getElementById("delete-selected");
 
 async function init() {
   try {
@@ -59,6 +60,26 @@ list.addEventListener("click", async (e) => {
     await deleteTransaction(id);
 
     showToast("수입/지출 내역이 삭제되었습니다.", "success");
+  } catch (e) {
+    showToast(e.message);
+  }
+});
+
+deleteSelectedBtn.addEventListener("click", async () => {
+  const checkedRows = document.querySelectorAll(
+    "#transaction-list input[type='checkbox']:checked",
+  );
+
+  const ids = [...checkedRows].map(
+    (checkbox) => checkbox.closest("tr").dataset.id,
+  );
+
+  if (ids.length === 0) return;
+
+  try {
+    const deletePromises = ids.map((id) => deleteTransaction(id));
+    await Promise.all(deletePromises);
+    showToast("선택한 수입/지출 내역이 삭제되었습니다.", "success");
   } catch (e) {
     showToast(e.message);
   }
