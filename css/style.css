@@ -14,10 +14,11 @@ body {
 
 /* 공통 */
 #title {
-  margin-bottom: 36px;
-  font-size: 28px;
+  margin-bottom: 28px;
+  font-size: 26px;
   font-weight: 700;
   text-align: center;
+  letter-spacing: -0.5px;
 }
 
 section {
@@ -29,36 +30,44 @@ section {
 }
 
 .section-title {
-  margin-bottom: 24px;
-  font-size: 18px;
+  margin-bottom: 20px;
+  font-size: 17px;
   font-weight: 600;
+  letter-spacing: -0.2px;
 }
 
 label {
   display: flex;
   flex-direction: column;
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #6e6e73;
 }
 
 input,
 select {
   margin-top: 6px;
-  padding: 8px;
-  border: 1px solid #ddd;
+  padding: 9px 12px;
+  border: 1px solid rgba(60, 60, 67, 0.12);
   border-radius: 6px;
+  color: #1c1c1e;
+  background: #ffffff;
 }
 
 button {
-  padding: 10px 14px;
+  padding: 10px 16px;
   border: none;
-  border-radius: 6px;
-  background: #2c7be5;
+  border-radius: 8px;
+  background: #007aff;
   color: white;
+  font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
+  transition: opacity 0.15s;
 }
 
 button:hover {
-  background: #1a68d1;
+  opacity: 0.85;
 }
 
 .full {
@@ -80,7 +89,11 @@ button:hover {
 .form-controls button {
   grid-column: 1 / -1;
   width: 100%;
-  margin-top: 8px;
+  margin-top: 4px;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
 }
 
 /* 수입/지출 목록 */
@@ -89,11 +102,19 @@ button:hover {
 #controls {
   display: flex;
   gap: 10px;
+  background: #f2f2f7;
+  padding: 14px;
+  border-radius: 12px;
+  margin-bottom: 4px;
 }
 
 #controls legend {
-  margin-bottom: 14px;
-  font-weight: 500;
+  margin-bottom: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6e6e73;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 #controls label {
@@ -112,12 +133,19 @@ button:hover {
 }
 
 #delete-selected {
-  margin-top: 12px;
-  background: #e5533d;
+  background: transparent;
+  color: #ff3b30;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border: 1px solid #ff3b30;
+  border-radius: 999px;
 }
 
 #delete-selected:hover {
-  background: #c53c29;
+  background: #ff3b30;
+  color: white;
+  opacity: 1;
 }
 
 /* 거래 내역 테이블 */
@@ -126,15 +154,22 @@ button:hover {
   border-collapse: collapse;
 }
 
-#transaction-table th,
-#transaction-table td {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+#transaction-table th {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6e6e73;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(60, 60, 67, 0.12);
   text-align: left;
 }
 
-#transaction-table th {
-  font-weight: 600;
+#transaction-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid rgba(60, 60, 67, 0.12);
+  font-size: 14px;
+  text-align: left;
 }
 
 #transaction-table th:last-child,
@@ -151,20 +186,45 @@ button:hover {
 }
 
 .income .amount {
-  color: #2a7cff;
+  color: #007aff;
 }
 
 .expense .amount {
-  color: #e5484d;
+  color: #ff3b30;
 }
 
-/* 삭제 버튼 */
+/* 수정/삭제 버튼 */
+.edit-btn,
 .delete-btn {
-  background: #e5484d;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 999px;
+}
+
+.edit-btn {
+  background: transparent;
+  color: #007aff;
+  border: 1px solid #007aff;
+  margin-right: 4px;
+}
+
+.edit-btn:hover {
+  background: #007aff;
+  color: white;
+  opacity: 1;
+}
+
+.delete-btn {
+  background: transparent;
+  color: #ff3b30;
+  border: 1px solid #ff3b30;
 }
 
 .delete-btn:hover {
-  background: #d9363e;
+  background: #ff3b30;
+  color: white;
+  opacity: 1;
 }
 
 /* 거래 내역이 없을 때 */
@@ -172,6 +232,7 @@ button:hover {
   text-align: center;
   padding: 20px;
   color: #888;
+  font-size: 14px;
 }
 
 /* 월별 통계 대시보드 */
@@ -184,10 +245,16 @@ button:hover {
 
 .stat {
   flex: 1;
-  background: #fafafa;
+  background: #f2f2f7;
   padding: 16px;
   border-radius: 8px;
   text-align: center;
+}
+
+.stat p {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6e6e73;
 }
 
 .stat strong {
@@ -197,15 +264,15 @@ button:hover {
 }
 
 .stat-income strong {
-  color: #2a7cff;
+  color: #007aff;
 }
 
 .stat-expense strong {
-  color: #e5484d;
+  color: #ff3b30;
 }
 
 .stat-balance strong {
-  color: #00b87a;
+  color: #34c759;
 }
 
 /* 카테고리별 거래 건수 */
@@ -246,10 +313,10 @@ button:hover {
 }
 
 .category-badge.income .category-count {
-  background: #2a7cff;
+  background: #007aff;
 }
 .category-badge.expense .category-count {
-  background: #e5484d;
+  background: #ff3b30;
 }
 
 /* 로딩 */
