@@ -14,7 +14,10 @@ export function renderTransactions(transactions) {
           <td>${t.category}</td>
           <td>${t.description}</td>
           <td class="amount">${amount}</td>
-          <td><button class="delete-btn">삭제</button></td>
+          <td>
+            <button class="edit-btn">수정</button>
+            <button class="delete-btn">삭제</button>
+          </td>
         </tr>
       `;
     })

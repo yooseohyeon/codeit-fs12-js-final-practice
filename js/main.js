@@ -1,11 +1,24 @@
-import { getInitialData, createTransaction, deleteTransaction } from "./api.js";
+import {
+  getInitialData,
+  createTransaction,
+  deleteTransaction,
+  updateTransaction,
+} from "./api.js";
 import { renderTransactions, renderCategoryOptions } from "./render/list.js";
 import { showLoading, hideLoading, showToast } from "./render/ui.js";
 import { validateTransaction } from "./validation.js";
 
 const form = document.querySelector("#transaction-form");
+const formTitle = document.querySelector("#form-title");
+const typeInput = document.querySelector("#type-input");
+const dateInput = document.querySelector("#date-input");
+const categoryInput = document.querySelector("#category-input");
+const amountInput = document.querySelector("#amount-input");
+const descriptionInput = document.querySelector("#description-input");
+const submitBtn = form.querySelector("button[type='submit']");
+
 const list = document.querySelector("#transaction-list");
-const deleteSelectedBtn = document.getElementById("delete-selected");
+const deleteSelectedBtn = document.querySelector("#delete-selected");
 
 async function init() {
   try {
@@ -36,30 +49,47 @@ function getFormData() {
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
+  const data = getFormData();
+  validateTransaction(data);
 
   try {
-    const data = getFormData();
+    if (form.dataset.editId) {
+      const id = form.dataset.editId;
+      await updateTransaction(id, data);
+      showToast("수입/지출 내역이 수정되었습니다.", "success");
 
-    validateTransaction(data);
-
-    await createTransaction(data);
-
-    showToast("수입/지출 내역이 추가되었습니다.", "success");
+      formTitle.textContent = "수입/지출 추가";
+      delete form.dataset.editId;
+      form.querySelector("button[type='submit']").textContent = "추가";
+    } else {
+      await createTransaction(data);
+      showToast("수입/지출 내역이 추가되었습니다.", "success");
+    }
   } catch (e) {
     showToast(e.message);
   }
 });
 
 list.addEventListener("click", async (e) => {
-  if (!e.target.classList.contains("delete-btn")) return;
+  const tr = e.target.closest("tr");
+  const id = tr.dataset.id;
 
   try {
-    const tr = e.target.closest("tr");
-    const id = tr.dataset.id;
+    if (e.target.classList.contains("delete-btn")) {
+      await deleteTransaction(id);
+      showToast("수입/지출 내역이 삭제되었습니다.", "success");
+    } else if (e.target.classList.contains("edit-btn")) {
+      formTitle.textContent = "수입/지출 내역 수정";
 
-    await deleteTransaction(id);
+      typeInput.value = tr.classList.contains("income") ? "income" : "expense";
+      dateInput.value = tr.children[1].textContent;
+      categoryInput.value = tr.children[2].textContent;
+      descriptionInput.value = tr.children[3].textContent;
+      amountInput.value = tr.children[4].textContent.replace(/[^\d]/g, "");
 
-    showToast("수입/지출 내역이 삭제되었습니다.", "success");
+      form.dataset.editId = id;
+      submitBtn.textContent = "수정";
+    }
   } catch (e) {
     showToast(e.message);
   }

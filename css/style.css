@@ -106,6 +106,15 @@ button:hover {
   margin: 12px 0;
 }
 
+#delete-selected {
+  margin-top: 12px;
+  background: #e5533d;
+}
+
+#delete-selected:hover {
+  background: #c53c29;
+}
+
 #transaction-table {
   width: 100%;
   border-collapse: collapse;
@@ -146,13 +155,12 @@ button:hover {
   color: #e5484d;
 }
 
-#delete-selected {
-  margin-top: 12px;
-  background: #e5533d;
+.delete-btn {
+  background: #e5484d;
 }
 
-#delete-selected:hover {
-  background: #c53c29;
+.delete-btn:hover {
+  background: #d9363e;
 }
 
 /* 월별 통계 대시보드 */
