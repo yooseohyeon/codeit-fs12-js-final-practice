@@ -8,6 +8,7 @@ import {
 import { renderTransactions, renderCategoryOptions } from "./render/list.js";
 import { showLoading, hideLoading, showToast } from "./render/ui.js";
 import { validateTransaction } from "./validation.js";
+import { filterTransactions } from "./utils.js";
 
 const form = document.querySelector("#transaction-form");
 const formTitle = document.querySelector("#form-title");
@@ -17,8 +18,14 @@ const categoryInput = document.querySelector("#category-input");
 const amountInput = document.querySelector("#amount-input");
 const descriptionInput = document.querySelector("#description-input");
 const submitBtn = form.querySelector("button[type='submit']");
+
 const list = document.querySelector("#transaction-list");
 const deleteSelectedBtn = document.querySelector("#delete-selected");
+
+const typeFilter = document.querySelector("#type-filter");
+const categoryFilter = document.querySelector("#category-filter");
+const sortSelect = document.querySelector("#sort-select");
+const searchInput = document.querySelector("#search-input");
 
 let transactions = [];
 let categories = [];
@@ -37,7 +44,6 @@ async function init() {
     showToast(e.message);
   } finally {
     hideLoading();
-    console.log("초기:", transactions);
   }
 }
 
@@ -46,7 +52,6 @@ init();
 async function loadTransactions() {
   transactions = await getTransactions();
   renderTransactions(transactions);
-  console.log("변경:", transactions);
 }
 
 function getFormData() {
@@ -133,3 +138,17 @@ deleteSelectedBtn.addEventListener("click", async () => {
     showToast(e.message);
   }
 });
+
+typeFilter.addEventListener("change", applyFilters);
+categoryFilter.addEventListener("change", applyFilters);
+sortSelect.addEventListener("change", applyFilters);
+searchInput.addEventListener("input", applyFilters);
+
+function applyFilters() {
+  const filtered = filterTransactions(transactions, {
+    type: typeFilter.value,
+    category: categoryFilter.value,
+  });
+
+  renderTransactions(filtered);
+}
