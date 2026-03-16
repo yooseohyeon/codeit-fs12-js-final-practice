@@ -1,6 +1,6 @@
 import { getInitialData } from "./api.js";
 import { renderTransactions, renderCategoryOptions } from "./render/list.js";
-import { showLoading, hideLoading } from "./render/ui.js";
+import { showLoading, hideLoading, showToast } from "./render/ui.js";
 
 async function init() {
   try {
@@ -11,10 +11,8 @@ async function init() {
     renderTransactions(transactions);
     renderCategoryOptions(categories);
   } catch (e) {
-    console.log(e);
+    showToast(e.message, "error");
   } finally {
     hideLoading();
   }
 }
-
-init();
