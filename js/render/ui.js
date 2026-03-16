@@ -18,6 +18,9 @@ export function showToast(message, type = "error", duration = 3000) {
 
   setTimeout(() => {
     toast.style.opacity = "0";
-    setTimeout(() => toastContainer.removeChild(toast), 300);
   }, duration);
+
+  setTimeout(() => {
+    toast.remove();
+  }, duration + 300);
 }
