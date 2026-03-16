@@ -24,3 +24,19 @@ export function debounce(func, delay = 300) {
     timer = setTimeout(() => func(...args), delay);
   };
 }
+
+export function calcStats(transactions) {
+  const currentMonthTransactions = transactions.filter(
+    (t) => new Date(t.date).getMonth() === new Date().getMonth(),
+  );
+
+  const income = currentMonthTransactions
+    .filter((t) => t.type === "income")
+    .reduce((acc, t) => acc + t.amount, 0);
+
+  const expense = currentMonthTransactions
+    .filter((t) => t.type === "expense")
+    .reduce((acc, t) => acc + t.amount, 0);
+
+  return { income, expense, balance: income - expense };
+}

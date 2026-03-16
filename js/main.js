@@ -13,7 +13,9 @@ import {
   sortTransactions,
   debounce,
   searchTransactions,
+  calcStats,
 } from "./utils.js";
+import { renderStats } from "./render/stats.js";
 
 const form = document.querySelector("#transaction-form");
 const formTitle = document.querySelector("#form-title");
@@ -45,6 +47,7 @@ async function init() {
 
     renderTransactions(transactions);
     renderCategoryOptions(categories);
+    loadStats(transactions);
   } catch (e) {
     showToast(e.message);
   } finally {
@@ -57,6 +60,7 @@ init();
 async function loadTransactions() {
   transactions = await getTransactions();
   renderTransactions(transactions);
+  loadStats(transactions);
 }
 
 function getFormData() {
@@ -168,4 +172,9 @@ function applyFilters() {
 
   // 렌더링
   renderTransactions(result);
+}
+
+function loadStats() {
+  const { income, expense, balance } = calcStats([...transactions]);
+  renderStats(income, expense, balance);
 }
