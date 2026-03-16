@@ -8,13 +8,13 @@ export function renderTransactions(transactions) {
         t.type === "income" ? `+${amountValue}` : `-${amountValue}`;
 
       return `
-        <tr class="${t.type}">
-          <td><input type="checkbox" data-id="${t.id}"></td>
+        <tr class="${t.type}" data-id="${t.id}">
+          <td><input type="checkbox"></td>
           <td>${t.date}</td>
           <td>${t.category}</td>
           <td>${t.description}</td>
           <td class="amount">${amount}</td>
-          <td><button data-id="${t.id}">삭제</button></td>
+          <td><button class="delete-btn">삭제</button></td>
         </tr>
       `;
     })

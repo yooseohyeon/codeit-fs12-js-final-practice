@@ -54,3 +54,19 @@ export async function createTransaction(data) {
     throw new Error("서버에 연결할 수 없습니다.");
   }
 }
+
+export async function deleteTransaction(id) {
+  try {
+    const res = await fetch(`${BASE_URL}/transactions/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) {
+      throw new Error("수입/지출 내역 삭제에 실패했습니다.");
+    }
+
+    return res.json();
+  } catch {
+    throw new Error("서버에 연결할 수 없습니다.");
+  }
+}
