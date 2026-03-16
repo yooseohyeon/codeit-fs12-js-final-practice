@@ -16,6 +16,7 @@ import {
   calcStats,
 } from "./utils.js";
 import { renderStats } from "./render/stats.js";
+import { saveSettings, loadSettings } from "./storage.js";
 
 const form = document.querySelector("#transaction-form");
 const formTitle = document.querySelector("#form-title");
@@ -47,7 +48,9 @@ async function init() {
 
     renderTransactions(transactions);
     renderCategoryOptions(categories);
-    loadStats(transactions);
+
+    applySettings();
+    loadStats();
     applyFilters();
   } catch (e) {
     showToast(e.message);
@@ -61,7 +64,7 @@ init();
 async function loadTransactions() {
   transactions = await getTransactions();
   renderTransactions(transactions);
-  loadStats(transactions);
+  loadStats();
 }
 
 function getFormData() {
@@ -173,9 +176,18 @@ function applyFilters() {
 
   // 렌더링
   renderTransactions(result);
+
+  saveSettings(typeFilter.value, categoryFilter.value, sortSelect.value);
 }
 
 function loadStats() {
   const { income, expense, balance } = calcStats([...transactions]);
   renderStats(income, expense, balance);
+}
+
+function applySettings() {
+  const settings = loadSettings();
+  typeFilter.value = settings.type;
+  categoryFilter.value = settings.category;
+  sortSelect.value = settings.sort;
 }
