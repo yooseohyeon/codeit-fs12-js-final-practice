@@ -1,5 +1,5 @@
 export function renderTransactions(transactions) {
-  const list = document.getElementById("transaction-list");
+  const list = document.querySelector("#transaction-list");
 
   if (transactions.length === 0) {
     list.innerHTML = `
@@ -34,11 +34,13 @@ export function renderTransactions(transactions) {
 }
 
 export function renderCategoryOptions(categories) {
-  const formSelect = document.getElementById("category-input");
-  const filterSelect = document.getElementById("category-filter");
+  const formSelect = document.querySelector("#category-input");
+  const filterSelect = document.querySelector("#category-filter");
 
-  const options = categories
-    .map((c) => `<option value="${c.name}">${c.name}</option>`)
+  const uniqueNames = new Set(categories.map((c) => c.name));
+
+  const options = [...uniqueNames]
+    .map((name) => `<option value="${name}">${name}</option>`)
     .join("");
 
   formSelect.innerHTML = `
