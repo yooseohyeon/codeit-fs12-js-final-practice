@@ -21,7 +21,7 @@ import {
   clearFormDraft,
 } from "./storage.js";
 import { renderTransactions, renderCategoryOptions } from "./render/list.js";
-import { renderStats } from "./render/stats.js";
+import { renderStats, renderCategoryStats } from "./render/stats.js";
 import { showLoading, hideLoading, showToast } from "./render/ui.js";
 
 /* DOM */
@@ -212,10 +212,20 @@ function applyFilters() {
 }
 
 /* 통계 */
-// 월별 통계 계산 후 렌더링
+// 월별 통계 및 카테고리별 거래 건수 계산 후 렌더링
 function loadStats() {
   const { income, expense, balance } = calcStats(transactions);
   renderStats(income, expense, balance);
+
+  const countByCategory = transactions.reduce((acc, t) => {
+    if (!acc[t.category]) {
+      acc[t.category] = { count: 0, type: t.type };
+    }
+    acc[t.category].count += 1;
+    return acc;
+  }, {});
+
+  renderCategoryStats(countByCategory);
 }
 
 /* localStorage, sessionStorage 복원 */

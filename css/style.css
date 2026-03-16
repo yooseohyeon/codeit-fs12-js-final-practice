@@ -185,6 +185,61 @@ button:hover {
   font-size: 20px;
 }
 
+.stat-income strong {
+  color: #2a7cff;
+}
+
+.stat-expense strong {
+  color: #e5484d;
+}
+
+.stat-balance strong {
+  color: #00b87a;
+}
+
+#category-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.category-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+.category-badge.income {
+  background: #eff5ff;
+}
+
+.category-badge.expense {
+  background: #fff0f0;
+}
+
+.category-name {
+  font-weight: 500;
+}
+
+.category-count {
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+}
+
+.category-badge.income .category-count {
+  background: #2a7cff;
+}
+.category-badge.expense .category-count {
+  background: #e5484d;
+}
+
 /* 로딩 */
 #loading {
   position: fixed;
