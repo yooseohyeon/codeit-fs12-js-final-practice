@@ -12,3 +12,15 @@ export function sortTransactions(transactions, sortOption) {
     if (sortOption === "amount-asc") return a.amount - b.amount;
   });
 }
+
+export function searchTransactions(transactions, keyword) {
+  return transactions.filter((t) => t.description.includes(keyword));
+}
+
+export function debounce(func, delay = 300) {
+  let timer;
+  return function (...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => func(...args), delay);
+  };
+}

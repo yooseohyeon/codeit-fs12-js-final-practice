@@ -8,7 +8,12 @@ import {
 import { renderTransactions, renderCategoryOptions } from "./render/list.js";
 import { showLoading, hideLoading, showToast } from "./render/ui.js";
 import { validateTransaction } from "./validation.js";
-import { filterTransactions, sortTransactions } from "./utils.js";
+import {
+  filterTransactions,
+  sortTransactions,
+  debounce,
+  searchTransactions,
+} from "./utils.js";
 
 const form = document.querySelector("#transaction-form");
 const formTitle = document.querySelector("#form-title");
@@ -139,10 +144,12 @@ deleteSelectedBtn.addEventListener("click", async () => {
   }
 });
 
+const debouncedFilter = debounce(() => applyFilters());
+
 typeFilter.addEventListener("change", applyFilters);
 categoryFilter.addEventListener("change", applyFilters);
 sortSelect.addEventListener("change", applyFilters);
-searchInput.addEventListener("input", applyFilters);
+searchInput.addEventListener("input", debouncedFilter);
 
 function applyFilters() {
   let result = [...transactions];
@@ -155,6 +162,9 @@ function applyFilters() {
 
   // 정렬
   result = sortTransactions(result, sortSelect.value);
+
+  // 검색
+  result = searchTransactions(result, searchInput.value);
 
   // 렌더링
   renderTransactions(result);
