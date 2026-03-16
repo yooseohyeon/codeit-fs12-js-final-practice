@@ -48,6 +48,7 @@ async function init() {
     renderTransactions(transactions);
     renderCategoryOptions(categories);
     loadStats(transactions);
+    applyFilters();
   } catch (e) {
     showToast(e.message);
   } finally {
