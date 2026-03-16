@@ -173,10 +173,8 @@ sortSelect.addEventListener("change", applyFilters);
 searchInput.addEventListener("input", debouncedFilter);
 
 function applyFilters() {
-  let result = [...transactions];
-
   // 필터
-  result = filterTransactions(transactions, {
+  let result = filterTransactions(transactions, {
     type: typeFilter.value,
     category: categoryFilter.value,
   });
@@ -190,11 +188,12 @@ function applyFilters() {
   // 렌더링
   renderTransactions(result);
 
+  // 필터/정렬 설정 저장
   saveSettings(typeFilter.value, categoryFilter.value, sortSelect.value);
 }
 
 function loadStats() {
-  const { income, expense, balance } = calcStats([...transactions]);
+  const { income, expense, balance } = calcStats(transactions);
   renderStats(income, expense, balance);
 }
 
