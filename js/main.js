@@ -8,7 +8,7 @@ import {
 import { renderTransactions, renderCategoryOptions } from "./render/list.js";
 import { showLoading, hideLoading, showToast } from "./render/ui.js";
 import { validateTransaction } from "./validation.js";
-import { filterTransactions } from "./utils.js";
+import { sortTransactions } from "./utils.js";
 
 const form = document.querySelector("#transaction-form");
 const formTitle = document.querySelector("#form-title");
@@ -145,10 +145,20 @@ sortSelect.addEventListener("change", applyFilters);
 searchInput.addEventListener("input", applyFilters);
 
 function applyFilters() {
-  const filtered = filterTransactions(transactions, {
-    type: typeFilter.value,
-    category: categoryFilter.value,
-  });
+  let result = [...transactions];
 
-  renderTransactions(filtered);
+  // 필터
+  if (typeFilter.value !== "all") {
+    result = result.filter((t) => t.type === typeFilter.value);
+  }
+
+  if (categoryFilter.value !== "all") {
+    result = result.filter((t) => t.category === categoryFilter.value);
+  }
+
+  // 정렬
+  result = sortTransactions(result, sortSelect.value);
+
+  // 렌더링
+  renderTransactions(result);
 }
