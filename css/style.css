@@ -1,0 +1,221 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+  background: #f5f6f8;
+  color: #333;
+  padding: 40px;
+}
+
+#title {
+  margin-bottom: 36px;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+}
+
+section {
+  background: white;
+  padding: 24px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.section-title {
+  margin-bottom: 24px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+input,
+select {
+  margin-top: 6px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #2c7be5;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1a68d1;
+}
+
+.full {
+  grid-column: span 2;
+}
+
+/* 수입/지출 추가 폼 */
+.form-controls {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.form-controls label {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-controls button {
+  grid-column: 1 / -1;
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* 수입/지출 목록*/
+#controls {
+  display: flex;
+  gap: 10px;
+}
+
+#controls legend {
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+
+#controls label {
+  width: 140px;
+}
+
+#controls label:last-child {
+  flex: 1;
+}
+
+.table-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin: 12px 0;
+}
+
+#transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#transaction-table th,
+#transaction-table td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+#transaction-table th {
+  font-weight: 600;
+}
+
+#transaction-table th:last-child,
+#transaction-table td:last-child {
+  text-align: right;
+  width: 1%;
+  white-space: nowrap;
+}
+
+#transaction-table tbody tr:hover {
+  background: #f7f7f7;
+}
+
+.amount {
+  font-weight: 600;
+  text-align: right;
+}
+
+.income .amount {
+  color: #2a7cff;
+}
+
+.expense .amount {
+  color: #e5484d;
+}
+
+#delete-selected {
+  margin-top: 12px;
+  background: #e5533d;
+}
+
+#delete-selected:hover {
+  background: #c53c29;
+}
+
+/* 월별 통계 대시보드 */
+.stats-container {
+  display: flex;
+  gap: 20px;
+}
+
+.stat {
+  flex: 1;
+  background: #fafafa;
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.stat strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 20px;
+}
+
+/* 로딩 */
+#loading {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: black;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 6px;
+}
+
+/* 에러 toast */
+#toast-container {
+  position: fixed;
+  bottom: 50px;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+}
+
+.toast {
+  padding: 20px 30px;
+  font-size: 14px;
+  font-weight: 500;
+  border-left: 8px solid;
+  border-radius: 10px;
+  color: #222;
+  background-color: #fff;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.toast-error {
+  border-left-color: #ff355b;
+}
+
+.toast-success {
+  border-left-color: #2a7cff;
+}

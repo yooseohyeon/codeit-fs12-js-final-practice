@@ -3,10 +3,162 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>지출 관리 앱</title>
+    <title>수입/지출 관리 앱</title>
+    <link rel="stylesheet" href="./css/reset.css" />
     <link rel="stylesheet" href="./css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Noto+Sans+KR:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <header>
+      <h1 id="title">수입/지출 관리</h1>
+    </header>
+
+    <main>
+      <!-- 수입/지출 추가 폼 -->
+      <section id="form-section">
+        <form id="transaction-form">
+          <fieldset class="form-controls">
+            <legend class="section-title">수입/지출 추가</legend>
+
+            <label>
+              타입
+              <select name="type" id="type-input" required>
+                <option value="">선택</option>
+                <option value="income">수입</option>
+                <option value="expense">지출</option>
+              </select>
+            </label>
+
+            <label>
+              날짜
+              <input type="date" name="date" id="date-input" required />
+            </label>
+
+            <label>
+              카테고리
+              <select name="category" id="category-input" required></select>
+            </label>
+
+            <label>
+              금액
+              <input
+                type="number"
+                name="amount"
+                id="amount-input"
+                min="1"
+                required
+              />
+            </label>
+
+            <label class="full">
+              설명
+              <input
+                type="text"
+                name="description"
+                id="description-input"
+                placeholder="설명 입력"
+                required
+              />
+            </label>
+
+            <button type="submit">추가</button>
+          </fieldset>
+        </form>
+      </section>
+
+      <!-- 수입/지출 목록 -->
+      <section id="transactions">
+        <h2 class="section-title">수입/지출 목록</h2>
+
+        <fieldset id="controls">
+          <legend>필터</legend>
+
+          <label>
+            타입 필터
+            <select id="type-filter">
+              <option value="all">전체</option>
+              <option value="income">수입</option>
+              <option value="expense">지출</option>
+            </select>
+          </label>
+
+          <label>
+            카테고리 필터
+            <select id="category-filter">
+              <option value="all">전체</option>
+            </select>
+          </label>
+
+          <label>
+            정렬
+            <select id="sort-select">
+              <option value="date-desc">날짜 최신순</option>
+              <option value="date-asc">날짜 오래된순</option>
+              <option value="amount-desc">금액 큰순</option>
+              <option value="amount-asc">금액 작은순</option>
+            </select>
+          </label>
+
+          <label>
+            검색
+            <input type="text" id="search-input" placeholder="설명 검색" />
+          </label>
+        </fieldset>
+
+        <div class="table-actions">
+          <button id="delete-selected">선택 삭제</button>
+        </div>
+
+        <table id="transaction-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>날짜</th>
+              <th>카테고리</th>
+              <th>설명</th>
+              <th>금액</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody id="transaction-list"></tbody>
+        </table>
+      </section>
+
+      <!-- 월별 통계 대시보드 -->
+      <section id="stats">
+        <h2 class="section-title">월별 통계</h2>
+
+        <div class="stats-container">
+          <div class="stat">
+            <p>총 수입</p>
+            <strong id="total-income">0</strong>
+          </div>
+
+          <div class="stat">
+            <p>총 지출</p>
+            <strong id="total-expense">0</strong>
+          </div>
+
+          <div class="stat">
+            <p>잔액</p>
+            <strong id="balance">0</strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- 로딩 -->
+      <div id="loading" hidden>로딩 중...</div>
+
+      <!-- 토스트 메시지 -->
+      <div id="toast-container"></div>
+    </main>
+
     <script type="module" src="./js/main.js"></script>
   </body>
 </html>
