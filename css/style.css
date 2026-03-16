@@ -138,10 +138,6 @@ button:hover {
   white-space: nowrap;
 }
 
-#transaction-table tbody tr:hover {
-  background: #f7f7f7;
-}
-
 .amount {
   font-weight: 600;
   text-align: right;
@@ -161,6 +157,12 @@ button:hover {
 
 .delete-btn:hover {
   background: #d9363e;
+}
+
+#transaction-table td.empty-message {
+  text-align: center;
+  padding: 20px;
+  color: #888;
 }
 
 /* 월별 통계 대시보드 */

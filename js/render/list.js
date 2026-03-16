@@ -1,6 +1,15 @@
 export function renderTransactions(transactions) {
   const list = document.getElementById("transaction-list");
 
+  if (transactions.length === 0) {
+    list.innerHTML = `
+      <tr>
+        <td colspan="6" class="empty-message">거래 내역이 없습니다.</td>
+      </tr>
+    `;
+    return;
+  }
+
   list.innerHTML = transactions
     .map((t) => {
       const amountValue = Number(t.amount).toLocaleString();
